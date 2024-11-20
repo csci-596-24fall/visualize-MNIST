@@ -1,8 +1,14 @@
 from utils.colors import BLACK
 
-SCREEN_WIDTH = 800
+SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 400
 SCREEN_DIVIDER = 400
 SCREEN_COLOR = BLACK
 SCREEN_TITLE = 'visualize MNIST'
 
+
+class NN_SIZE:
+    INPUT = (28, 28)
+    LAYER1 = (10, 5)
+    LAYER2 = (10, 1)
+    

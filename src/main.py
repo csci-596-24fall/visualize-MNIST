@@ -1,13 +1,14 @@
 import pygame
+import pygame.camera
 
 from components.board import Board
-from components.nn import visualize_nn
-from utils.colors import BLACK
-from utils.constant import *
+from components.visualizer import Visualizer
+from utils.constant import SCREEN_COLOR, SCREEN_HEIGHT, SCREEN_TITLE, SCREEN_WIDTH
 
 def main():
     pygame.init()
     clock = pygame.time.Clock()
+
 
     # Create the screen
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -17,6 +18,8 @@ def main():
 
     # Init drawing board
     board = Board(screen)
+    # Init visualizer
+    visualizer = Visualizer(screen, font)
 
     # Main loop
     running = True
@@ -27,14 +30,12 @@ def main():
             board.handle_event(event)
 
         # Update board
-        # if event.pos[0] < SCREEN_DIVIDER:  # Ensure drawing only in the left section
         board.handle_iteration()
 
-        # Draw the divider line
-        pygame.draw.line(screen, BLACK, (SCREEN_DIVIDER, 0), (SCREEN_DIVIDER, SCREEN_HEIGHT), 2)
-        # Display content on the right section
+        # Update visualizer with drawing
+        if board.is_updated():
+            visualizer.update(board.get_img())
 
-        visualize_nn(screen, font)
         # Update the display
         pygame.display.update()
         clock.tick(60)
