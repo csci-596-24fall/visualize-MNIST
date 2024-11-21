@@ -4,7 +4,7 @@ import pygame.camera
 from components.board import Board
 from components.neural_network import NeuralNetwork
 from components.visualizer import Visualizer
-from utils.constant import SCREEN_COLOR, SCREEN_HEIGHT, SCREEN_TITLE, SCREEN_WIDTH
+from utils.constant import SCREEN_HEIGHT, SCREEN_TITLE, SCREEN_WIDTH
 
 def reset(board, visualizer):
     board.reset()

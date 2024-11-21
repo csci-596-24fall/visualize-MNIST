@@ -54,12 +54,17 @@ class Visualizer:
         text_instruction = self.font.render("press any key to reset", True, BLACK)
         self.screen.blit(text_instruction, (SCREEN_DIVIDER + self.GAP, 350))
 
+        # Draw input layer text
         text_input = self.font.render("Input", True, BLACK)
         self.screen.blit(text_input, (self.INPUT_LAYER_OFFSET_X, 10))
+
+        # Draw layer1 text
         text_layer1 = self.font.render("Layer 1", True, BLACK)
         self.screen.blit(text_layer1, (self.LAYER1_OFFSET_X, 10))
-        # TODO: add layer2 and layer3 text
+
+        # TODO: add layer2 and layer3 text (similar as layer1 text)
     
+
     def reset(self):
         self.update()
     

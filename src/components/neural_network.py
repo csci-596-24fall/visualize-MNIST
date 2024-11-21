@@ -28,7 +28,6 @@ class NeuralNetwork:
 
 
     def update(self, img):
-        # TODO: not sure T or not T
         input_layer = img.flatten().T
         layer1 = ReLU(np.matmul(input_layer, self.w1) + self.b1)
         layer2 = ReLU(np.matmul(layer1, self.w2) + self.b2)
