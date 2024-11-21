@@ -9,6 +9,7 @@ SCREEN_TITLE = 'visualize MNIST'
 
 class NN_SIZE:
     INPUT = (28, 28)
-    LAYER1 = (10, 5)
-    LAYER2 = (10, 1)
+    LAYER1 = (8, 16)
+    LAYER2 = (4, 4)
+    LAYER3 = (10, 1)
     

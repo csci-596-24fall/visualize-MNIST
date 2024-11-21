@@ -2,6 +2,7 @@ import pygame
 import pygame.camera
 
 from components.board import Board
+from components.neural_network import NeuralNetwork
 from components.visualizer import Visualizer
 from utils.constant import SCREEN_COLOR, SCREEN_HEIGHT, SCREEN_TITLE, SCREEN_WIDTH
 
@@ -18,6 +19,8 @@ def main():
 
     # Init drawing board
     board = Board(screen)
+    # Init neural network
+    nn = NeuralNetwork()
     # Init visualizer
     visualizer = Visualizer(screen, font)
 
@@ -31,10 +34,11 @@ def main():
 
         # Update board
         board.handle_iteration()
-
-        # Update visualizer with drawing
         if board.is_updated():
-            visualizer.update(board.get_img())
+            # Update Neural Network
+            nn.update(board.get_img())
+            # Update visualizer with drawing
+            visualizer.update(nn.get_activations())
 
         # Update the display
         pygame.display.update()
