@@ -17,7 +17,7 @@ def main():
     clock = pygame.time.Clock()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption(SCREEN_TITLE)
-    font = pygame.font.Font(None, 24)
+    font = pygame.font.Font(pygame.font.get_default_font(), 12)
 
     # Init drawing board
     board = Board(screen)

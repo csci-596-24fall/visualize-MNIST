@@ -8,12 +8,20 @@ from utils.constant import NN_SIZE, SCREEN_DIVIDER, SCREEN_HEIGHT, SCREEN_WIDTH
 class Visualizer:
     LINE_COLOR = GRAY
     CELL_SIZE = 10
+    GAP = 10
 
-    INPUT_LAYER_OFFSET = (SCREEN_DIVIDER + 10, 100)
-    LAYER1_OFFSET = (SCREEN_DIVIDER + 300, 100)
-    LAYER2_OFFSET = (SCREEN_DIVIDER + 470, 100)
-    LAYER3_OFFSET = (SCREEN_DIVIDER + 520, 100)
-    RESULT_OFFSET_X = SCREEN_DIVIDER + 540
+    INPUT_LAYER_OFFSET_X = SCREEN_DIVIDER + GAP
+    LAYER1_OFFSET_X = INPUT_LAYER_OFFSET_X + NN_SIZE.INPUT[1] * CELL_SIZE + GAP
+    LAYER2_OFFSET_X = LAYER1_OFFSET_X + NN_SIZE.LAYER1[1] * CELL_SIZE + GAP
+    LAYER3_OFFSET_X = LAYER2_OFFSET_X + NN_SIZE.LAYER2[1] * CELL_SIZE + GAP
+    RESULT_OFFSET_X = LAYER3_OFFSET_X + GAP * 2
+
+    LAYERS_OFFSET_Y = 30
+
+    INPUT_LAYER_OFFSET = (INPUT_LAYER_OFFSET_X, LAYERS_OFFSET_Y)
+    LAYER1_OFFSET = (LAYER1_OFFSET_X, LAYERS_OFFSET_Y)
+    LAYER2_OFFSET = (LAYER2_OFFSET_X, LAYERS_OFFSET_Y)
+    LAYER3_OFFSET = (LAYER3_OFFSET_X, LAYERS_OFFSET_Y)
 
     def __init__(self, screen, font) -> None:
         self.screen = screen
@@ -35,7 +43,7 @@ class Visualizer:
 
             result = np.argmax(layers[3])
             text_result = self.font.render(f"{result}", True, BLACK)
-            self.screen.blit(text_result, (self.RESULT_OFFSET_X, 100 + result * self.CELL_SIZE))
+            self.screen.blit(text_result, (self.RESULT_OFFSET_X, self.LAYERS_OFFSET_Y + result * self.CELL_SIZE))
 
         self._draw_grid(NN_SIZE.INPUT, self.INPUT_LAYER_OFFSET)
         self._draw_grid(NN_SIZE.LAYER1, self.LAYER1_OFFSET)
@@ -44,7 +52,13 @@ class Visualizer:
 
         # Draw instruction text
         text_instruction = self.font.render("press any key to reset", True, BLACK)
-        self.screen.blit(text_instruction, (SCREEN_DIVIDER + 20, 20))
+        self.screen.blit(text_instruction, (SCREEN_DIVIDER + self.GAP, 350))
+
+        text_input = self.font.render("Input", True, BLACK)
+        self.screen.blit(text_input, (self.INPUT_LAYER_OFFSET_X, 10))
+        text_layer1 = self.font.render("Layer 1", True, BLACK)
+        self.screen.blit(text_layer1, (self.LAYER1_OFFSET_X, 10))
+        # TODO: add layer2 and layer3 text
     
     def reset(self):
         self.update()
