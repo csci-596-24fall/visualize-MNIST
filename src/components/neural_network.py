@@ -7,9 +7,10 @@ from utils.file import load_mat
 def ReLU(x):
     return x * (x > 0)
 
-def softmax(x):
-    e_x = np.exp(x - np.max(x))  # Subtracting max for numerical stability
-    return e_x / e_x.sum(axis = 0) 
+def softmax(x, axis = None):
+    x = x - x.max(axis = axis, keepdims = True)
+    y = np.exp(x)
+    return y / y.sum(axis = axis, keepdims = True)
 
 class NeuralNetwork:
     def __init__(self) -> None:
@@ -28,12 +29,12 @@ class NeuralNetwork:
 
     def update(self, img):
         # TODO: not sure T or not T
-        input_layer = img.T.flatten().T
+        input_layer = img.flatten().T
         layer1 = ReLU(np.matmul(input_layer, self.w1) + self.b1)
         layer2 = ReLU(np.matmul(layer1, self.w2) + self.b2)
         layer3 = softmax(np.matmul(layer2, self.w3) + self.b3)
 
-        # TODO: the value is not right here
+        print("=== peak values ===")
         print(np.min(input_layer), np.max(input_layer))
         print(np.min(layer1), np.max(layer1))
         print(np.min(layer2), np.max(layer2))

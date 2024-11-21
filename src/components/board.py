@@ -1,7 +1,7 @@
 import pygame
 import cv2
 from utils.colors import WHITE
-from utils.constant import NN_SIZE, SCREEN_DIVIDER, SCREEN_HEIGHT, SCREEN_WIDTH
+from utils.constant import NN_SIZE, SCREEN_COLOR, SCREEN_DIVIDER, SCREEN_HEIGHT, SCREEN_WIDTH
 
 class Draw:
     STROKE_WIDTH = 10
@@ -45,6 +45,8 @@ class Board:
     def is_updated(self):
         return self._drawing
 
+    def reset(self):
+        self._screen.fill(SCREEN_COLOR)
 
     def _save_img_to_array(self):
         # Get array from drawing
