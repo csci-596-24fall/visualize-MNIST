@@ -1,5 +1,6 @@
 import pygame
 import pygame.camera
+import matplotlib.pyplot as plt # plotting library
 
 from components.board import Board
 from components.neural_network import NeuralNetwork
@@ -34,13 +35,19 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            if event.type == pygame.KEYDOWN:
+            elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
                 reset(board, visualizer)
+            # Press D to debug
+            elif event.type == pygame.KEYDOWN and event.key == pygame.K_d:
+                plt.imshow(board.get_img(), cmap='gray')
+                plt.show()
+
 
             board.handle_event(event)
 
         # Update board
         board.handle_iteration()
+        # If board is updated, update neural network and visualizer
         if board.is_updated():
             # Update Neural Network
             nn.update(board.get_img())

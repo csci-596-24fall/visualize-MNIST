@@ -51,7 +51,7 @@ class Visualizer:
         self._draw_grid(NN_SIZE.LAYER3, self.LAYER3_OFFSET)
 
         # Draw instruction text
-        text_instruction = self.font.render("press any key to reset", True, BLACK)
+        text_instruction = self.font.render("press space to reset", True, BLACK)
         self.screen.blit(text_instruction, (SCREEN_DIVIDER + self.GAP, 350))
 
         # Draw input layer text
