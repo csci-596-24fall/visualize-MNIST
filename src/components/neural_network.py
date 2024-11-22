@@ -30,7 +30,10 @@ class NeuralNetwork:
 
     def _calc_layer(self, cur, weight, bias, activation):
         res = np.matmul(cur, weight) + bias
-        return activation(res)
+        res = activation(res)
+
+        print(f"peak {np.min(res)}, {np.max(res)}")
+        return res
 
 
     def update(self, img):

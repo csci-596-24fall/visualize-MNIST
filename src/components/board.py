@@ -1,7 +1,8 @@
+import numpy as np
 import pygame
 import cv2
 from utils.colors import WHITE
-from utils.constant import NN_SIZE, SCREEN_COLOR, SCREEN_DIVIDER, SCREEN_HEIGHT, SCREEN_WIDTH
+from utils.constant import NN_SIZE, SCREEN_COLOR, SCREEN_DIVIDER
 
 class Draw:
     # TODO: adjust stroke width to be thicker
@@ -50,16 +51,18 @@ class Board:
         self._screen.fill(SCREEN_COLOR)
 
     def _save_img_to_array(self):
-        # Get array from drawing
-        string_image = pygame.image.tostring(self._screen, 'RGB')
-        surface = pygame.image.fromstring(string_image, (SCREEN_WIDTH, SCREEN_HEIGHT), 'RGB')
-        temp_arr = pygame.surfarray.array2d(surface)
+        # Get current rgb array
+        surface = pygame.display.get_surface()
+        rgb = pygame.surfarray.array3d(surface)
 
-        # Crop the board part only
-        cropped = temp_arr[0:SCREEN_DIVIDER,]
-        # Make it smaller
-        resized = cv2.resize(cropped.astype('float32'), dsize=NN_SIZE.INPUT, interpolation=cv2.INTER_CUBIC)
-        # grayscale
-        grayed = (resized > 0).astype(int)
+        cropper = lambda x: rgb[0:SCREEN_DIVIDER,]
+        grayscaler = lambda x: np.dot(x[..., :3], [0.299, 0.587, 0.114])
+        resizer = lambda x: cv2.resize(x.astype('float32'), dsize=NN_SIZE.INPUT, interpolation=cv2.INTER_CUBIC)
+        clipper = lambda x: np.clip(x, 0, 255)
+        normalizer = lambda x: x / 255.0
 
-        self._img_arr = grayed.T
+        res = rgb
+        for op in [cropper, resizer, clipper, grayscaler, clipper, normalizer]:
+            res = op(res)
+
+        self._img_arr = res.T

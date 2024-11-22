@@ -4,6 +4,7 @@ import numpy as np
 import pygame
 from utils.colors import BLACK, GRAY, WHITE
 from utils.constant import NN_SIZE, SCREEN_DIVIDER, SCREEN_HEIGHT, SCREEN_WIDTH
+from utils.utils import normalize
 
 class Visualizer:
     LINE_COLOR = GRAY
@@ -94,9 +95,7 @@ class Visualizer:
         height, width = shape
         offset_x, offset_y = offset
 
-        v_min = np.min(activation)
-        v_max = np.max(activation)
-        normalized = (activation - v_min) / (v_max - v_min) if v_max != v_min else activation
+        normalized = normalize(activation)
 
         # Draw activation
         for i in range(height):
@@ -106,9 +105,6 @@ class Visualizer:
 
                 # Map value to 0-255 grayscale
                 grey_shade = int((1 - value) * 255)
-
-                if grey_shade < 0: grey_shade = 0
-                if grey_shade > 255: grey_shade = 255
 
                 color = (grey_shade, grey_shade, grey_shade)
                 pygame.draw.rect(self.screen, color, 
