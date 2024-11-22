@@ -94,15 +94,22 @@ class Visualizer:
         height, width = shape
         offset_x, offset_y = offset
 
+        v_min = np.min(activation)
+        v_max = np.max(activation)
+        normalized = (activation - v_min) / (v_max - v_min) if v_max != v_min else activation
+
         # Draw activation
         for i in range(height):
             for j in range(width):
                 # Get the value from the array
-                value = activation[i][j]
+                value = normalized[i][j]
+
                 # Map value to 0-255 grayscale
                 grey_shade = int((1 - value) * 255)
+
                 if grey_shade < 0: grey_shade = 0
                 if grey_shade > 255: grey_shade = 255
+
                 color = (grey_shade, grey_shade, grey_shade)
                 pygame.draw.rect(self.screen, color, 
                                 (offset_x + j * self.CELL_SIZE, 

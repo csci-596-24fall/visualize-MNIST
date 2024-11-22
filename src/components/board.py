@@ -4,7 +4,8 @@ from utils.colors import WHITE
 from utils.constant import NN_SIZE, SCREEN_COLOR, SCREEN_DIVIDER, SCREEN_HEIGHT, SCREEN_WIDTH
 
 class Draw:
-    STROKE_WIDTH = 10
+    # TODO: adjust stroke width to be thicker
+    STROKE_WIDTH = 4
     def __init__(self, screen):
         self._color = WHITE
         self._screen = screen
@@ -57,7 +58,7 @@ class Board:
         # Crop the board part only
         cropped = temp_arr[0:SCREEN_DIVIDER,]
         # Make it smaller
-        resized = cv2.resize(cropped.astype('float32'), dsize=NN_SIZE.INPUT, interpolation=cv2.INTER_AREA)
+        resized = cv2.resize(cropped.astype('float32'), dsize=NN_SIZE.INPUT, interpolation=cv2.INTER_CUBIC)
         # grayscale
         grayed = (resized > 0).astype(int)
 

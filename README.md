@@ -40,3 +40,6 @@ source .venv/bin/activate
 python3 src/main.py
 ```
 
+
+## train
+Open `src/MNIST.ipynb` and run, highly recommend using Google Colab.

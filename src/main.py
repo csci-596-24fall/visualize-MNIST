@@ -39,10 +39,8 @@ def main():
                 reset(board, visualizer)
             # Press D to debug
             elif event.type == pygame.KEYDOWN and event.key == pygame.K_d:
-                plt.imshow(board.get_img(), cmap='gray')
+                plt.imshow(board.get_img(), cmap = 'gray')
                 plt.show()
-
-
             board.handle_event(event)
 
         # Update board
@@ -52,7 +50,7 @@ def main():
             # Update Neural Network
             nn.update(board.get_img())
             # Update visualizer with drawing
-            visualizer.update(nn.get_activations())
+            visualizer.update(nn.get_layers())
 
         # Update the display
         pygame.display.update()
