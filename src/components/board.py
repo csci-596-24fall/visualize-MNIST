@@ -6,7 +6,7 @@ from utils.constant import NN_SIZE, SCREEN_COLOR, SCREEN_DIVIDER
 
 class Draw:
     # TODO: adjust stroke width to be thicker
-    STROKE_WIDTH = 4
+    STROKE_WIDTH = 10
     def __init__(self, screen):
         self._color = WHITE
         self._screen = screen
