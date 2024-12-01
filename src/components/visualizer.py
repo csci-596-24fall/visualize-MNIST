@@ -63,7 +63,15 @@ class Visualizer:
         text_layer1 = self.font.render("Layer 1", True, BLACK)
         self.screen.blit(text_layer1, (self.LAYER1_OFFSET_X, 10))
 
-        # TODO: add layer2 and layer3 text (similar as layer1 text)
+        # Draw layer2 text
+        text_layer2 = self.font.render("Layer 2", True, BLACK)
+        self.screen.blit(text_layer2, (self.LAYER2_OFFSET_X, 10))
+
+        # Draw layer3 text
+        text_layer3 = self.font.render("Layer 3", True, BLACK)
+        self.screen.blit(text_layer3, (self.LAYER3_OFFSET_X, 10))
+    
+
     
 
     def reset(self):
